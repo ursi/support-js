@@ -1,0 +1,42 @@
+{
+  "name": "@ursi/support",
+  "version": "1.0.0",
+  "description": "The JavaScript component to the SupPort Elm package",
+  "browser": "SupPort.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ursi/support-js.git"
+  },
+  "keywords": [
+    "elm",
+    "port",
+    "support"
+  ],
+  "author": "Mason Mackaman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ursi/support-js/issues"
+  },
+  "homepage": "https://github.com/ursi/support-js#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.3.0",
+    "jest": "^25.3.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  }
+}

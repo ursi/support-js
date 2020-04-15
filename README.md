@@ -1,6 +1,6 @@
 # SupPort
 
-This is the JavaScript component to the [SupPort Elm Package](todo). The documentation for using SupPort on the Elm side is in that package.
+This is the JavaScript component to the [SupPort Elm Package](https://github.com/ursi/support). The documentation for using SupPort on the Elm side is in that package.
 
 To get up and running with SupPort on the JS side, start by importing the `SupPort` function and creating your port handling function.
 
