@@ -1,6 +1,6 @@
 {
   "name": "@ursi/support",
-  "version": "1.0.1-0",
+  "version": "1.0.1-1",
   "description": "The JavaScript component to the SupPort Elm package",
   "main": "main/index.js",
   "browser": "browser/index.js",
