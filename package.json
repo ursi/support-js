@@ -2,7 +2,7 @@
   "name": "@ursi/support",
   "version": "1.0.1-0",
   "description": "The JavaScript component to the SupPort Elm package",
-  "main": "main/SupPort.js",
+  "main": "main/index.js",
   "browser": "browser/index.js",
   "types": "main/index.d.ts",
   "scripts": {
