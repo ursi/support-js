@@ -1,6 +1,6 @@
 {
   "name": "@ursi/support",
-  "version": "1.0.0",
+  "version": "1.0.1-0",
   "description": "The JavaScript component to the SupPort Elm package",
   "main": "main/SupPort.js",
   "browser": "browser/index.js",
@@ -8,7 +8,7 @@
   "scripts": {
     "test": "tsc --outDir test --module CommonJS && jest",
     "build": "tsc --outDir main --module CommonJS -d & tsc --outDir browser",
-	"prepare": "tsc --outDir main --module CommonJS -d & tsc --outDir browser"
+    "prepare": "tsc --outDir main --module CommonJS -d & tsc --outDir browser"
   },
   "repository": {
     "type": "git",
