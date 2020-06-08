@@ -1,10 +1,10 @@
 // this exists for testing purposes
 
-function errorHeader(...args) {
+function errorHeader(...args: Array<string>): string {
 	return `SupPort Error: ` + args.join(` -> `);
 }
 
-function noPortError(portsObj, portName, portType) {
+function noPortError(portsObj: object, portName: string, portType: `in` | `out`): string {
 	return `${errorHeader(`There is no "${portName}" port`)}
 
 To use SupPort, ports have to use the naming convention "portName(In|Out)".
@@ -14,7 +14,7 @@ In-ports are for sending values into Elm.
 ${noPortErrorHelper(portsObj, portType)}`
 }
 
-function noPortErrorHelper(portsObj, portType) {
+function noPortErrorHelper(portsObj: object, portType: `in` | `out`): string {
 	if (portType === `in`)
 		return `${noPortErrorHelperHelper(`out`, `'true'`, `4th`)}
 
@@ -27,32 +27,36 @@ Your out-ports are:
 ${createOutPortsString(portsObj)}`;
 }
 
-function noPortErrorHelperHelper(a, b, c) {
+function noPortErrorHelperHelper(a: string, b: string, c: string): string {
 	return `To use an ${a}-port by itself, pass ${b} as the ${c} argument to your port handling function.`
 }
 
-function createInPortsString(portsObj) {
+function createInPortsString(portsObj: object): string {
 	return createPortsStringHelper(
 		Object.entries(portsObj)
-			.filter(([_, value]) => value.hasOwnProperty(`send`))
+			.filter((entry: [string, {send?: (value: any) => void}]): boolean => {
+				return entry[1].hasOwnProperty(`send`);
+			})
 	);
 }
 
-function createOutPortsString(portsObj) {
+function createOutPortsString(portsObj: object): string {
 	return createPortsStringHelper(
 		Object.entries(portsObj)
-			.filter(([_, value]) => value.hasOwnProperty(`subscribe`))
+			.filter((entry: [string, {subscribe?: (value: (value2: any) => any) => void}]): boolean => {
+				return entry[1].hasOwnProperty(`subscribe`);
+			})
 	);
 }
 
-function createPortsStringHelper(list) {
+function createPortsStringHelper(list: Array<[string, any]>): string {
 	return list
 		.map(([k, _]) => `\t` + k)
 		.sort()
 		.join(`\n`);
 }
 
-function msgError(portBaseName, from) {
+function msgError(portBaseName: string, from: string): string {
 	return `${errorHeader(portBaseName, from)}
 
 Looks like you forgot to specify which message that data was going to!`

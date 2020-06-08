@@ -1,16 +1,43 @@
-import {errorHeader, noPortError, msgError} from './errors.js';
+import {errorHeader, noPortError, msgError} from './errors';
 
-function SupPort(portsObj) {
-	return (portBaseName, handler, inOnly = {}, useOutOnly = false) => {
+interface InPort {
+	send: (value: any) => void;
+}
+
+interface OutPort {
+	subscribe: (listener: (value: any) => void) => void;
+}
+
+type PortFunction = (
+	baseName: string,
+	handler: PortHandler,
+	inOnly: InOnly,
+	useOutOnly: boolean,
+) => void;
+
+interface PortHandler {
+	[key: string]: (value: any) => any;
+}
+
+interface InOnly {
+	[key: string]: (
+		send: (value: any) => any,
+		sendTo: (msg: string, value: any) => any
+	) => void;
+}
+
+
+function SupPort(portsObj: {[key: string]: InPort | OutPort | undefined}): PortFunction {
+	return (portBaseName: string, handler: PortHandler, inOnly: InOnly = {}, useOutOnly: boolean = false) => {
 		const
-			inPortName = portBaseName + `In`,
-			outPortName = portBaseName + `Out`,
-			inPort = portsObj[inPortName],
-			outPort = portsObj[outPortName];
+			inPortName: string = portBaseName + `In`,
+			outPortName: string = portBaseName + `Out`,
+			inPort = <InPort | undefined>portsObj[inPortName],
+			outPort = <OutPort | undefined>portsObj[outPortName];
 
-		let send;
+		let send: ((msg: string) => void) | ((msg: string, data: any, from: string) => void)
 		if (useOutOnly) {
-			send = msg => {
+			send = (msg: string): void => {
 				throw `${errorHeader(portBaseName, msg)}
 
 	You tried to send some data back into Elm, but this port is set up as "out only".
@@ -59,7 +86,7 @@ function SupPort(portsObj) {
 					} else if (typeof in_ === `string`) {
 						send(in_, null, msg);
 					} else if (typeof in_ === `function`) {
-						in_((inMsg, inData) => send(inMsg, inData, msg));
+						in_((inMsg: string, inData: any): void => send(inMsg, inData, msg));
 					}
 				}
 			});
@@ -68,7 +95,7 @@ function SupPort(portsObj) {
 };
 
 
-function isEmpty(obj) {
+function isEmpty(obj: object): boolean {
 	return Object.keys(obj).length === 0;
 }
 

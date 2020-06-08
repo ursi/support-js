@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"strict": true,
+		"target": "ES2020",
+		"removeComments": true,
+		"moduleResolution": "node"
+	},
+	"files": [
+		"index.ts"
+	]
+}

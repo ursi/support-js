@@ -1,5 +1,10 @@
-import {errorHeader, noPortError, msgError} from './errors.js';
-import SupPort from './SupPort.js';
+const
+	{
+		errorHeader,
+		noPortError,
+		msgError
+	} = require(`./test/errors`),
+	SupPort = require(`./test/index`).default;
 
 const
 	inOnlyPorts = {testIn: {send: () => {}}},
