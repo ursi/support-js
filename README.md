@@ -5,7 +5,7 @@ This is the JavaScript component to the [SupPort Elm Package](https://github.com
 To get up and running with SupPort on the JS side, start by importing the `SupPort` function and creating your port handling function.
 
 ```js
-import SupPort from './SupPort.js';
+import SupPort from '@ursi/support';
 
 const app = Elm.Main.init()
 
@@ -17,7 +17,7 @@ const port = SupPort(app.ports);
 ### `port(portName, handler [, inOnly [, useOutOnly]])`
 
 * `portName`: This is a `string` that is equal to the first part of your In/Out port pair.
-* `handler`: This is an object whose keys correspond to the strings passed to the `SupPort.out` function (in Elm), and whose values are functions that take, as their only argument, the `Json.Encode.Value` passed to `SupPort.out`.
+* `handler`: This is an object whose keys correspond to the strings passed to the `SupPort.out` function (in Elm), and whose values are functions that take the `Json.Encode.Value`s passed to `SupPort.out` as their arguments.
 
     The `handler` methods can return 3 different things:
     * **A 2-tuple (array):** The 2 values correspond to the appropriate value in the `List ( String, Decoder Msg )` passed into `SupPort.in_` in Elm.
