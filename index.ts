@@ -16,7 +16,7 @@ type PortFunction = (
 ) => void;
 
 interface PortHandler {
-	[key: string]: (value: any) => any;
+	[key: string]: (...args: Array<any>) => any;
 }
 
 interface InOnly {
@@ -79,7 +79,7 @@ function SupPort(portsObj: {[key: string]: InPort | OutPort | undefined}): PortF
 
 '${msg}' is not a valid message name.`;
 				} else {
-					const in_ = await func.call(handler, data);
+					const in_ = await func.call(handler, ...Array.from(data));
 
 					if (Array.isArray(in_)) {
 						send(in_[0], in_[1], msg);

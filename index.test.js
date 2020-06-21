@@ -34,7 +34,7 @@ describe(`in subscribe handler`, () => {
 
 	test(`out-only but there is an attempt to send a message back in`, () => {
 		const [[handler]] = mockPorts.testOut.subscribe.mock.calls;
-		return expect(handler({msg: `Test`})).rejects.toBe(`${errorHeader(`test`, `Port`)}
+		return expect(handler({msg: `Test`, data: arrayLikeify()})).rejects.toBe(`${errorHeader(`test`, `Port`)}
 
 	You tried to send some data back into Elm, but this port is set up as "out only".
 
@@ -55,7 +55,7 @@ describe(`sending in values`, () => {
 
 		const [[handler]] = mockPorts.testOut.subscribe.mock.calls;
 
-		await handler({msg: `Test`});
+		await handler({msg: `Test`, data: arrayLikeify()});
 
 		expect(mockPorts.testIn.send.mock.calls[0][0])
 			.toEqual({msg: `Port`, data: null});
@@ -68,7 +68,7 @@ describe(`sending in values`, () => {
 
 		const [[handler]] = mockPorts.testOut.subscribe.mock.calls;
 
-		await handler({msg: `Test`, data: 1});
+		await handler({msg: `Test`, data: arrayLikeify(1)});
 
 		expect(mockPorts.testIn.send.mock.calls[0][0])
 			.toEqual({msg: `Port`, data: 1});
@@ -81,7 +81,7 @@ describe(`sending in values`, () => {
 
 		const [[handler]] = mockPorts.testOut.subscribe.mock.calls;
 
-		await handler({msg: `Test`, data: 1});
+		await handler({msg: `Test`, data: arrayLikeify(1)});
 
 		expect(mockPorts.testIn.send.mock.calls[0][0])
 			.toEqual({msg: `Port`, data: 1});
@@ -95,7 +95,7 @@ describe(`sending in values`, () => {
 
 			const [[handler]] = mockPorts.testOut.subscribe.mock.calls;
 
-			return expect(handler({msg: `Test`, data: 1}))
+			return expect(handler({msg: `Test`, data: arrayLikeify(1)}))
 				.rejects
 				.toBe(msgError(`test`, `Test`));
 
@@ -108,7 +108,7 @@ describe(`sending in values`, () => {
 
 			const [[handler]] = mockPorts.testOut.subscribe.mock.calls;
 
-			return expect(handler({msg: `Test`, data: 1}))
+			return expect(handler({msg: `Test`, data: arrayLikeify(1)}))
 				.rejects
 				.toBe(msgError(`test`, `Test`));
 		});
@@ -207,3 +207,12 @@ Your out-ports are:
 		});
 	});
 })
+
+function arrayLikeify(...args) {
+	const obj = {length: args.length};
+	args.map((v, i) => {
+		obj[i] = v;
+	});
+
+	return obj;
+}
