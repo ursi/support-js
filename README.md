@@ -42,7 +42,7 @@ const port = SupPort(app.ports);
 * `inOnly`: This is an object used to specify values that are sent into Elm without first needing to be set up by a value coming out of Elm. Maybe you just want to listen to the `scroll` event of the window at all times.
 
     Usually, the keys of this object represent the string part of data going into Elm. The values are functions that take 2 functions as their arguments.
-    * `send`: This function takes a single argument - a value to be passed into Elm. The string that accompanies that value will be the name of the method.
+    * `send`: This function takes a single argument - a value to be passed into Elm. The string that accompanies this value will be the name of the method.
     * `sendTo`: This function doesn't restrict which message you're sending back in. It takes 2 arguments. The first is a string, the second the value to be passed into Elm.
 
     Here is how you could write out the `scroll` example above:
