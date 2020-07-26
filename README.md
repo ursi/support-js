@@ -27,7 +27,7 @@ const port = SupPort(app.ports);
 
     * **A function:** This is the most general case. The returned function takes in, as its only argument, a function of two arguments. These two arguments correspond to the appropriate value in the `List ( String, Decoder Msg )` passed into `SupPort.in_` in Elm.
 
-        e.g. 
+        e.g.
         ```js
         port(`timer`, {
             StartTimer() {
@@ -38,7 +38,7 @@ const port = SupPort(app.ports);
         });
         ```
     * **undefined:** If nothing (`undefined`), is returned SupPort will not attempt to send any information back to Elm.
-    
+
     The value of `this` in each of the `handler` methods is `handler`, so data can be shared between them without using the global scope.
 * `inOnly`: This is an object used to specify values that are sent into Elm without first needing to be set up by a value coming out of Elm. Maybe you just want to listen to the `scroll` event of the window at all times.
 
