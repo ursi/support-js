@@ -19,7 +19,7 @@ const port = SupPort(app.ports);
 * `portName`: This is a `string` that is equal to the first part of your In/Out port pair.
 * `handler`: This is an object whose keys correspond to the strings passed to the `SupPort.out` function (in Elm), and whose values are functions that take the `Json.Encode.Value`s passed to `SupPort.out` as their arguments.
 
-    The `handler` methods can return 3 different things:
+    The `handler` methods can return 4 different things:
     * **A 2-tuple (array):** The 2 values correspond to the appropriate value in the `List ( String, Decoder Msg )` passed into `SupPort.in_` in Elm.
 
         e.g. `['NumberReceived', 5]`
@@ -37,7 +37,8 @@ const port = SupPort(app.ports);
             };
         });
         ```
-
+    * **undefined:** If nothing (`undefined`), is returned SupPort will not attempt to send any information back to Elm.
+    
     The value of `this` in each of the `handler` methods is `handler`, so data can be shared between them without using the global scope.
 * `inOnly`: This is an object used to specify values that are sent into Elm without first needing to be set up by a value coming out of Elm. Maybe you just want to listen to the `scroll` event of the window at all times.
 
